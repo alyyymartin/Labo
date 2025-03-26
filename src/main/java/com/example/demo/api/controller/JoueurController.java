@@ -15,15 +15,15 @@ public class JoueurController {
 
     private final JoueurService joueurService;
 
-//    @PostMapping("/create")
-//    public ResponseEntity<CreateJoueurResponse> créerJoueur(@RequestBody CreateJoueurRequest createJoueurRequest) {
-//        return ResponseEntity.ok(joueurService.créerJoueur(createJoueurRequest));
-//    }
-//
-//    @GetMapping("/{username}")
-//    public ResponseEntity<Joueur> findJoueurByUsername(@PathVariable String username) {
-//        return ResponseEntity.ok(joueurService.findJoueurByUsername(username));
-//    }
+    @PostMapping("/create")
+    public ResponseEntity<CreateJoueurResponse> createJoueur(@RequestBody CreateJoueurRequest createJoueurRequest) {
+        return ResponseEntity.ok(joueurService.createJoueur(createJoueurRequest));
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<Joueur> findJoueurByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(joueurService.findJoueurByUsername(username));
+    }
 
 
 }

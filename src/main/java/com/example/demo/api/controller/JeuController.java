@@ -25,9 +25,9 @@ public class JeuController {
 //    }
 //
 
-//    @PostMapping ("/create")
-//    public ResponseEntity<CreateJeuResponse> createJeu (@RequestBody CreateJeuRequest createJeuRequest){
-//
-//    }
+    @PostMapping ("/create")
+    public ResponseEntity<CreateJeuResponse> createJeu (@RequestBody CreateJeuRequest createJeuRequest){
+        return ResponseEntity.ok(jeuService.createJeu(createJeuRequest));
+    }
 }
 

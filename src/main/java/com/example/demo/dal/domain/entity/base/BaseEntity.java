@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @MappedSuperclass
-public abstract class BaseEntity<T extends Serializable> extends AuditedEntity {
+public abstract class BaseEntity<T extends Serializable>  {
 
     @Id
     @GeneratedValue

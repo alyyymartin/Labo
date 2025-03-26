@@ -21,28 +21,28 @@ public class JoueurServiceImpl implements JoueurService {
 
     private final JoueurRepository joueurRepository;
 
-//    @Override
-//    public Joueur findJoueurByUsername(String username) {
-//        Optional <Joueur> joueurtoFind = joueurRepository.findByUsername(username);
-//        return joueurtoFind .orElseThrow();
-//    }
-//
-//    @Override
-//    public CreateJoueurResponse créerJoueur(CreateJoueurRequest createJoueurRequest) {
-//
-//        String usernameJoueurToCreate = createJoueurRequest.username();
-//        Joueur joueurToCreate = new Joueur(joueurRepository.findByUsername(usernameJoueurToCreate));
-//
-//        if (joueurToCreate != null) {
-//            joueurToCreate.setUsername(createJoueurRequest.username());
-//            joueurToCreate.setNom(createJoueurRequest.nom());
-//            joueurToCreate.setPrenom(createJoueurRequest.prenom());
-//            joueurToCreate.setPassword(createJoueurRequest.password());
-//            joueurToCreate.setPresentation(createJoueurRequest.presentation());
-//            joueurRepository.save(joueurToCreate);
-//            return new CreateJoueurResponse("Le joueur suivant a bien été créé : ", joueurToCreate.toString());
-//        } else {
-//            return new CreateJoueurResponse("Impossible de créer le joueur suivant : ", joueurToCreate.toString());
-//        }
-//    }
+    @Override
+    public Joueur findJoueurByUsername(String username) {
+        Optional <Joueur> joueurtoFind = joueurRepository.findByUsername(username);
+        return joueurtoFind .orElseThrow();
+    }
+
+    @Override
+    public CreateJoueurResponse createJoueur(CreateJoueurRequest createJoueurRequest) {
+
+        String usernameJoueurToCreate = createJoueurRequest.username();
+        Joueur joueurToCreate = new Joueur(joueurRepository.findByUsername(usernameJoueurToCreate));
+
+        if (joueurToCreate != null) {
+            joueurToCreate.setUsername(createJoueurRequest.username());
+            joueurToCreate.setNom(createJoueurRequest.nom());
+            joueurToCreate.setPrenom(createJoueurRequest.prenom());
+            joueurToCreate.setPassword(createJoueurRequest.password());
+            joueurToCreate.setPresentation(createJoueurRequest.presentation());
+            joueurRepository.save(joueurToCreate);
+            return new CreateJoueurResponse("Le joueur suivant a bien été créé : ", joueurToCreate.toString());
+        } else {
+            return new CreateJoueurResponse("Impossible de créer le joueur suivant : ", joueurToCreate.toString());
+        }
+    }
 }

@@ -14,6 +14,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 @Table(name = "types")
 public class Type extends BaseEntity<Long> {
 

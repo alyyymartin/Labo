@@ -10,8 +10,9 @@ import java.util.Optional;
 @Repository
 public interface JoueurRepository extends JpaRepository<Joueur, Long> {
 
-//    @Query( "Select j " +
-//            "from Joueurs j " +
-//            "where j.username ilike :username")
-//    Optional<Joueur> findByUsername(String username);
+    @Query( "Select j " +
+            "from Joueur j " +
+            "where j.username ilike :username")
+    Optional<Joueur> findByUsername(String username);
+
 }
