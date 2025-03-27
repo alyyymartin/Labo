@@ -4,8 +4,6 @@ import com.example.demo.dal.domain.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity

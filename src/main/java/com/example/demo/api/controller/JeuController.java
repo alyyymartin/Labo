@@ -4,13 +4,15 @@ import com.example.demo.api.model.jeu.Create.CreateJeuRequest;
 import com.example.demo.api.model.jeu.Create.CreateJeuResponse;
 import com.example.demo.api.model.jeu.GetAll.GetAllJeuxResponse;
 import com.example.demo.bll.service.JeuService;
-import com.example.demo.bll.serviceImpl.JeuServiceImpl;
+import com.example.demo.dal.domain.entity.Jeu;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,11 +21,15 @@ public class JeuController {
 
     private final JeuService jeuService;
 
-//    @GetMapping ("")
-//    public ResponseEntity<List<GetAllJeuxResponse>> getAllJeux () {
-//        return ResponseEntity.ok(new ArrayList<>(jeuService.getAllJeux()));
-//    }
-//
+    @GetMapping ("")
+    public ResponseEntity<Set<GetAllJeuxResponse>> getAllJeux () {
+        HashSet<Jeu> setAllJeux = new HashSet<Jeu>(jeuService.getAllJeux());
+        HashSet<GetAllJeuxResponse> setAllJeuxResponse = new HashSet<>();
+        for (Jeu jeu : setAllJeux) {
+            setAllJeuxResponse.add(new GetAllJeuxResponse(jeu));
+        }
+        return ResponseEntity.ok(setAllJeuxResponse);
+    }
 
     @PostMapping ("/create")
     public ResponseEntity<CreateJeuResponse> createJeu (@RequestBody CreateJeuRequest createJeuRequest){

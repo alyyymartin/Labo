@@ -9,7 +9,9 @@ import com.example.demo.dal.repository.JeuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +30,11 @@ public class JeuServiceImpl implements JeuService {
         return new CreateJeuResponse("Le jeu suivant a bien été créé :", jeuToCreate);
     }
 
-    //    @Override
-//    public List<GetAllJeuxResponse> getAllJeux() {
-//        return List.of();
-//    }
+    @Override
+    public Set<Jeu> getAllJeux() {
+        Set <Jeu> setAllJeux = new HashSet<>();
+        setAllJeux.addAll(jeuRepository.findAll());
+        return setAllJeux;
+    }
 }
+
