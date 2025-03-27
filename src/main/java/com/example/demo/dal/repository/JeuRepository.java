@@ -12,8 +12,8 @@ import java.util.Set;
 @Repository
 public interface JeuRepository extends JpaRepository<Jeu, Long> {
 
-//    @Query( "Select j " +
-//            "from Jeu j  " +
-//            "where j.type.id = :typeId")
-//    Set<Jeu> getAllJeuxByTypeId(@Param("typeId") Long typeId);
+    @Query ("Select j " +
+            "from Jeu j " +
+            "where j.jeu ilike :jeu")
+    Jeu getJeuByJeu(@Param("jeu") String jeu);
 }

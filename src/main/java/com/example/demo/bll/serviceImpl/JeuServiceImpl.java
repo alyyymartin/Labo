@@ -3,6 +3,7 @@ package com.example.demo.bll.serviceImpl;
 import com.example.demo.api.model.jeu.Create.CreateJeuRequest;
 import com.example.demo.api.model.jeu.Create.CreateJeuResponse;
 import com.example.demo.api.model.jeu.GetAll.GetAllJeuxResponse;
+import com.example.demo.api.model.jeu.GetJeuByJeu.GetJeuByJeuResponse;
 import com.example.demo.bll.service.JeuService;
 import com.example.demo.dal.domain.entity.Jeu;
 import com.example.demo.dal.repository.JeuRepository;
@@ -35,6 +36,13 @@ public class JeuServiceImpl implements JeuService {
         Set <Jeu> setAllJeux = new HashSet<>();
         setAllJeux.addAll(jeuRepository.findAll());
         return setAllJeux;
+    }
+
+    @Override
+    public GetJeuByJeuResponse getJeuByJeu(String jeu) {
+        Jeu jeuToFind = new Jeu();
+        jeuToFind = jeuRepository.getJeuByJeu(jeu);
+        return new GetJeuByJeuResponse(jeuToFind);
     }
 }
 
