@@ -2,6 +2,7 @@ package com.example.demo.bll.service;
 
 import com.example.demo.api.model.jeu.Create.CreateJeuRequest;
 import com.example.demo.api.model.jeu.Create.CreateJeuResponse;
+import com.example.demo.api.model.jeu.DeleteJeuById.DeleteJeuByIdResponse;
 import com.example.demo.api.model.jeu.GetAll.GetAllJeuxResponse;
 import com.example.demo.api.model.jeu.GetJeuByJeu.GetJeuByJeuResponse;
 import com.example.demo.dal.domain.entity.Jeu;
@@ -15,5 +16,7 @@ public interface JeuService {
     Set<Jeu> getAllJeux();
 
     GetJeuByJeuResponse getJeuByJeu(String jeu);
+
+    DeleteJeuByIdResponse deleteJeuById(Long id);
 }
 

@@ -29,3 +29,4 @@ public class Type extends BaseEntity<Long> {
     private String description;
 
 }
+

@@ -14,8 +14,14 @@ import java.util.Set;
 @Repository
 public interface TypeRepository extends JpaRepository <Type, Long> {
 
-    @Query( "Select t " +
+    @Query("Select t " +
             "from Type t  " +
             "where t.id IN :typeId")
     Set<Type> getAllJeuxByTypeId(Set<Long> typeId);
+
+    @Query("Select t " +
+            "from Type t  " +
+            "where t.type ilike :newType")
+    Optional<Type> findTypeByType(String newType);
+
 }

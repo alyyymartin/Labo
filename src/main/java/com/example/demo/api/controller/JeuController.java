@@ -2,6 +2,7 @@ package com.example.demo.api.controller;
 
 import com.example.demo.api.model.jeu.Create.CreateJeuRequest;
 import com.example.demo.api.model.jeu.Create.CreateJeuResponse;
+import com.example.demo.api.model.jeu.DeleteJeuById.DeleteJeuByIdResponse;
 import com.example.demo.api.model.jeu.GetAll.GetAllJeuxResponse;
 import com.example.demo.api.model.jeu.GetJeuByJeu.GetJeuByJeuResponse;
 import com.example.demo.bll.service.JeuService;
@@ -38,6 +39,11 @@ public class JeuController {
     @PostMapping ("/create")
     public ResponseEntity<CreateJeuResponse> createJeu (@RequestBody CreateJeuRequest createJeuRequest){
         return ResponseEntity.ok(jeuService.createJeu(createJeuRequest));
+    }
+
+    @DeleteMapping ("/delete/{id}")
+    public ResponseEntity<DeleteJeuByIdResponse> deleteJeuById (@PathVariable Long id) {
+        return ResponseEntity.ok(jeuService.deleteJeuById(id));
     }
 }
 

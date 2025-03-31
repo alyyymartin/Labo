@@ -2,12 +2,15 @@ package com.example.demo.bll.serviceImpl;
 
 import com.example.demo.api.model.jeu.Create.CreateJeuRequest;
 import com.example.demo.api.model.jeu.Create.CreateJeuResponse;
+import com.example.demo.api.model.jeu.DeleteJeuById.DeleteJeuByIdResponse;
 import com.example.demo.api.model.jeu.GetAll.GetAllJeuxResponse;
 import com.example.demo.api.model.jeu.GetJeuByJeu.GetJeuByJeuResponse;
+import com.example.demo.bll.exception.ressourceNotFound.RessourceNotFoundException;
 import com.example.demo.bll.service.JeuService;
 import com.example.demo.dal.domain.entity.Jeu;
 import com.example.demo.dal.repository.JeuRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -44,5 +47,18 @@ public class JeuServiceImpl implements JeuService {
         jeuToFind = jeuRepository.getJeuByJeu(jeu);
         return new GetJeuByJeuResponse(jeuToFind);
     }
-}
 
+    @Override
+    public DeleteJeuByIdResponse deleteJeuById(Long id) {
+
+        try{Jeu jeuToDelete = new Jeu();
+            jeuToDelete = jeuRepository.getReferenceById(id);
+            jeuRepository.delete(jeuToDelete);
+            return new DeleteJeuByIdResponse("Le jeu suivant a bien été supprimé : ", jeuToDelete);
+        } catch (RessourceNotFoundException ressourceNotFoundException) {
+            Jeu jeuIntrouvable = new Jeu();
+            jeuIntrouvable.setId(id);
+            return new DeleteJeuByIdResponse("Aucun jeu avec cet id n'a été trouvé : ", jeuIntrouvable);
+        }
+    }
+}
