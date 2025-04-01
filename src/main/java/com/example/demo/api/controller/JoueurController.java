@@ -43,9 +43,9 @@ public class JoueurController {
         return ResponseEntity.ok(joueurService.deleteJoueurByUsername(username));
     }
 
-//    @PutMapping("/update/{username}")
-//    public ResponseEntity<UpdateJoueurByUsernameResponse> updateJoueurByUserame(@PathVariable String username, @RequestBody UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest) {
-//        return ResponseEntity.ok(joueurService.updateJoueurByUsername(username, updateJoueurByUsernameRequest));
-//    }
+    @PutMapping("/{username}/update")
+    public ResponseEntity<UpdateJoueurByUsernameResponse> updateJoueurByUserame(@PathVariable String username, @RequestBody UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest) {
+        return ResponseEntity.ok(joueurService.updateJoueurByUsername(username, updateJoueurByUsernameRequest));
+    }
 
 }

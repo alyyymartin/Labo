@@ -23,5 +23,5 @@ public interface JoueurService {
 
     DeleteJoueurByUsernameResponse deleteJoueurByUsername (String username);
 
-//    UpdateJoueurByUsernameResponse updateJoueurByUsername(String username, UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest);
+    UpdateJoueurByUsernameResponse updateJoueurByUsername(String username, UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest);
 }
