@@ -24,14 +24,16 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public CreateTypeResponse createType(CreateTypeRequest createTypeRequest) {
-        if (typeRepository.findTypeByType(createTypeRequest.type()) != null) {
+        Optional <Type> typeToFind = typeRepository.findTypeByType(createTypeRequest.type());
+        if (typeToFind != null) {
             throw new AlreadyExistsException("Un type identique existe déjà.");
+        } else {
+            Type typeToCreate = new Type();
+            typeToCreate.setType(createTypeRequest.type());
+            typeToCreate.setDescription(createTypeRequest.description());
+            typeRepository.save(typeToCreate);
+            return new CreateTypeResponse("Le type suivant a bien été créé : ", typeToCreate);
         }
-        Type typeToCreate = new Type ();
-        typeToCreate.setType(createTypeRequest.type());
-        typeToCreate.setDescription(createTypeRequest.description());
-        typeRepository.save(typeToCreate);
-        return new CreateTypeResponse("Le type suivant a bien été créé : ", typeToCreate);
     }
 
     @Override

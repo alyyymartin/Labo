@@ -152,6 +152,15 @@ public class DataInitializer implements CommandLineRunner {
             joueurInitial.setPassword("Kalio");
             joueurInitial.setPresentation("Test de présentation");
             joueurRepository.save(joueurInitial);
+
+            //Création joueurInitial 1
+            Joueur joueurInitial2 = new Joueur();
+            joueurInitial2.setNom("Martin");
+            joueurInitial2.setPrenom("Arnaud");
+            joueurInitial2.setUsername("Otocyon");
+            joueurInitial2.setPassword("Otocyon");
+            joueurInitial2.setPresentation("Test de présentation d'Arnaud");
+            joueurRepository.save(joueurInitial2);
         }
     }
 }

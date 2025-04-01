@@ -6,11 +6,12 @@ public class AlreadyExistsException extends LaboException {
 
     public AlreadyExistsException(String message) {
         super(message);
-    };
+    }
 
     public AlreadyExistsException(String message, int statut) {
         super(message, statut);
-    };
+    }
+
 }
 
 

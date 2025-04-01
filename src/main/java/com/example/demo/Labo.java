@@ -8,5 +8,6 @@ public class Labo {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Labo.class, args);
+
 	}
 }

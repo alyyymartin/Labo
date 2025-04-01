@@ -5,6 +5,7 @@ import com.example.demo.api.model.jeu.Create.CreateJeuResponse;
 import com.example.demo.api.model.jeu.DeleteJeuById.DeleteJeuByIdResponse;
 import com.example.demo.api.model.jeu.GetAll.GetAllJeuxResponse;
 import com.example.demo.api.model.jeu.GetJeuByJeu.GetJeuByJeuResponse;
+import com.example.demo.bll.exception.alreadyExists.AlreadyExistsException;
 import com.example.demo.bll.exception.ressourceNotFound.RessourceNotFoundException;
 import com.example.demo.bll.service.JeuService;
 import com.example.demo.dal.domain.entity.Jeu;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -25,13 +27,18 @@ public class JeuServiceImpl implements JeuService {
 
     @Override
     public CreateJeuResponse createJeu(CreateJeuRequest createJeuRequest) {
-        Jeu jeuToCreate = new Jeu ();
-        jeuToCreate.setJeu(createJeuRequest.jeu());
-        jeuToCreate.setNbreMaxJoueurs(createJeuRequest.nbreMaxJoueurs());
-        jeuToCreate.setNbreMinJoueurs(createJeuRequest.nbreMinJoueurs());
-        jeuToCreate.setDescription(createJeuRequest.description());
-        jeuRepository.save(jeuToCreate);
-        return new CreateJeuResponse("Le jeu suivant a bien été créé :", jeuToCreate);
+        Optional<Jeu> jeuToFind = jeuRepository.getJeuByJeu(createJeuRequest.jeu());
+        if (jeuToFind.isPresent()) {
+            throw new AlreadyExistsException("Un jeu existe déjà avec ce nom.");
+        } else {
+            Jeu jeuToCreate = new Jeu ();
+            jeuToCreate.setJeu(createJeuRequest.jeu());
+            jeuToCreate.setNbreMaxJoueurs(createJeuRequest.nbreMaxJoueurs());
+            jeuToCreate.setNbreMinJoueurs(createJeuRequest.nbreMinJoueurs());
+            jeuToCreate.setDescription(createJeuRequest.description());
+            jeuRepository.save(jeuToCreate);
+            return new CreateJeuResponse("Le jeu suivant a bien été créé :", jeuToCreate);
+        }
     }
 
     @Override
@@ -43,8 +50,8 @@ public class JeuServiceImpl implements JeuService {
 
     @Override
     public GetJeuByJeuResponse getJeuByJeu(String jeu) {
-        Jeu jeuToFind = new Jeu();
-        jeuToFind = jeuRepository.getJeuByJeu(jeu);
+        Jeu jeuToFind = jeuRepository.getJeuByJeu(jeu)
+                .orElseThrow(() -> new RessourceNotFoundException("Jeu introuvable"));
         return new GetJeuByJeuResponse(jeuToFind);
     }
 

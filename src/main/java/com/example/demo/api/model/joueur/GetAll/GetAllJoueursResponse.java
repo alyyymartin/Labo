@@ -2,9 +2,9 @@ package com.example.demo.api.model.joueur.GetAll;
 
 import com.example.demo.dal.domain.entity.Joueur;
 
-import java.util.Optional;
+import java.util.Set;
 
 public record GetAllJoueursResponse(
-        Optional<Joueur> joueur
+       Set<Joueur> setGetAllJoueursResponse
 ) {
 }

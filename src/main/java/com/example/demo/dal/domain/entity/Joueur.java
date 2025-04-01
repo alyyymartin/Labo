@@ -33,7 +33,4 @@ public class Joueur extends BaseEntity<Long>  {
     @Getter @Setter
     @Column(name = "Présentation")
     private String presentation;
-
-    public Joueur(Optional<Joueur> byUsername) {
-    }
 }

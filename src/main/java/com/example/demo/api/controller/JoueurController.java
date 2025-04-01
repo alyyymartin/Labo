@@ -32,19 +32,14 @@ public class JoueurController {
         return ResponseEntity.ok(joueurService.findJoueurByUsername(username));
     }
 
-//    @GetMapping ("")
-//    public ResponseEntity<Set<GetAllJoueursResponse>> getAllJoueurs () {
-//        Set<Joueur> setAllJoueurs = new HashSet<>(joueurService.getAllJoueurs());
-//        Set<GetAllJoueursResponse> setAllJoueursResponse = new HashSet<>();
-//        for (Joueur joueur : setAllJoueurs) {
-//            GetAllJoueursResponse joueurToAdd = new GetAllJoueursResponse(joueur);
-//            setAllJoueursResponse.add(joueurToAdd);
-//        }
-//        return ResponseEntity.ok(setAllJoueursResponse);
+    @GetMapping ("")
+    public ResponseEntity<GetAllJoueursResponse> getAllJoueurs () {
+        return ResponseEntity.ok(joueurService.getAllJoueurs());
+    }
+
+//    @PutMapping("/update/{username}")
+//    public ResponseEntity<UpdateJoueurByUsernameResponse> updateJoueurByUserame(@PathVariable String username, @RequestBody UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest) {
+//        return ResponseEntity.ok(joueurService.updateJoueurByUsername(username, updateJoueurByUsernameRequest));
 //    }
 
-    @PutMapping("/update/{username}")
-    public ResponseEntity<UpdateJoueurByUsernameResponse> updateJoueurByUserame(@PathVariable String username, @RequestBody UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest) {
-        return ResponseEntity.ok(joueurService.updateJoueurByUsername(username, updateJoueurByUsernameRequest));
-    }
 }
