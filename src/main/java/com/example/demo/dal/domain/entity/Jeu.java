@@ -35,7 +35,7 @@ public class Jeu extends BaseEntity<Long> {
 
     @Getter
     @Setter
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable (
             name = "jeu_type",
             joinColumns = @JoinColumn(name = "jeu_id"),

@@ -1,8 +1,8 @@
-package com.example.demo.api.model.jeu.DeleteJeuById;
+package com.example.demo.api.model.jeu.DeleteJeuByJeu;
 
 import com.example.demo.dal.domain.entity.Jeu;
 
-public record DeleteJeuByIdResponse(
+public record DeleteJeuByJeuResponse(
         String message,
         Jeu jeuDeleted
 ) {
