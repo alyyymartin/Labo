@@ -2,6 +2,7 @@ package com.example.demo.bll.serviceImpl;
 
 import com.example.demo.api.model.joueur.Create.CreateJoueurRequest;
 import com.example.demo.api.model.joueur.Create.CreateJoueurResponse;
+import com.example.demo.api.model.joueur.DeleteByUsername.DeleteJoueurByUsernameResponse;
 import com.example.demo.api.model.joueur.GetAll.GetAllJoueursResponse;
 import com.example.demo.api.model.joueur.GetByUsername.GetByUsernameResponse;
 import com.example.demo.api.model.joueur.Update.UpdateJoueurByUsernameRequest;
@@ -55,6 +56,16 @@ public class JoueurServiceImpl implements JoueurService {
         setAllJoueurs.addAll(joueurRepository.findAll());
         return new GetAllJoueursResponse(setAllJoueurs);
     }
+
+    @Override
+    public DeleteJoueurByUsernameResponse deleteJoueurByUsername(String username) {
+        Joueur joueurToDelete = joueurRepository.findByUsername(username)
+                .orElseThrow(() -> new RessourceNotFoundException("Joueur inexistant"));
+        joueurRepository.delete(joueurToDelete);
+        return new DeleteJoueurByUsernameResponse("Le joueur suivant a bien été supprimé : ", joueurToDelete);
+    }
+
+
 
 //    @Override
 //    public UpdateJoueurByUsernameResponse updateJoueurByUsername(String username, UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest) {

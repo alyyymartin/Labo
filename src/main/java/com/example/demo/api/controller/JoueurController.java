@@ -2,6 +2,7 @@ package com.example.demo.api.controller;
 
 import com.example.demo.api.model.joueur.Create.CreateJoueurRequest;
 import com.example.demo.api.model.joueur.Create.CreateJoueurResponse;
+import com.example.demo.api.model.joueur.DeleteByUsername.DeleteJoueurByUsernameResponse;
 import com.example.demo.api.model.joueur.GetAll.GetAllJoueursResponse;
 import com.example.demo.api.model.joueur.GetByUsername.GetByUsernameResponse;
 import com.example.demo.api.model.joueur.Update.UpdateJoueurByUsernameRequest;
@@ -35,6 +36,11 @@ public class JoueurController {
     @GetMapping ("")
     public ResponseEntity<GetAllJoueursResponse> getAllJoueurs () {
         return ResponseEntity.ok(joueurService.getAllJoueurs());
+    }
+
+    @DeleteMapping ("/{username}/delete")
+    public ResponseEntity<DeleteJoueurByUsernameResponse> deleteJoueurByUsername (@PathVariable String username) {
+        return ResponseEntity.ok(joueurService.deleteJoueurByUsername(username));
     }
 
 //    @PutMapping("/update/{username}")
