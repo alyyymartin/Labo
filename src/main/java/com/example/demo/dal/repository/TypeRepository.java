@@ -6,19 +6,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Repository
 public interface TypeRepository extends JpaRepository <Type, Long> {
 
-    @Query("Select t " +
-            "from Type t  " +
-            "where t.id IN :typeId and active = true")
-    Set<Type> getAllJeuxByTypeId(Set<Long> typeId);
+//    Query si je veux seulement afficher un type lorsqu'il est actif :
+//    @Query("Select t " +
+//            "from Type t  " +
+//            "where t.type ilike :newType and active = true")
+//    Optional<Type> findTypeByType(String newType);
 
     @Query("Select t " +
             "from Type t  " +
-            "where t.type ilike :newType and active = true")
+            "where t.type ilike :newType")
     Optional<Type> findTypeByType(String newType);
-
 }
