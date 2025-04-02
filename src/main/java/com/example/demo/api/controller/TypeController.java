@@ -2,6 +2,7 @@ package com.example.demo.api.controller;
 
 import com.example.demo.api.model.type.Create.CreateTypeRequest;
 import com.example.demo.api.model.type.Create.CreateTypeResponse;
+import com.example.demo.api.model.type.DeleteByType.DeleteTypeByTypeResponse;
 import com.example.demo.api.model.type.FindByType.FindTypeByTypeResponse;
 import com.example.demo.api.model.type.GetAll.GetAllTypesResponse;
 import com.example.demo.bll.service.TypeService;
@@ -22,12 +23,14 @@ public class TypeController {
 
     @PostMapping("/create")
         public ResponseEntity<CreateTypeResponse> createType (@RequestBody CreateTypeRequest createTypeRequest){
-            return ResponseEntity.ok(typeService.createType(createTypeRequest));
+            Type typeToCreate = typeService.createType(createTypeRequest);
+            return ResponseEntity.ok(new CreateTypeResponse("Le type suivant a bien été créé : ", typeToCreate));
         }
 
     @GetMapping("/{type}")
     public ResponseEntity<FindTypeByTypeResponse> findTypeByType(@PathVariable String type) {
-        return ResponseEntity.ok(typeService.findTypeByType(type));
+        Type typeToFind = typeService.findTypeByType(type);
+        return ResponseEntity.ok(new FindTypeByTypeResponse("Le type recherché est le suivant : ", typeToFind));
     }
 
     @GetMapping("")
@@ -37,6 +40,12 @@ public class TypeController {
         return ResponseEntity.ok(setAllTypesResponse);
     }
 
+    @DeleteMapping ("/{type}/delete")
+    public ResponseEntity<DeleteTypeByTypeResponse> deleteTypeByType (@PathVariable String type) {
+        Type typeToDelete = typeService.findTypeByType(type);
+        typeService.deleteTypeByType(type);
+        return ResponseEntity.ok(new DeleteTypeByTypeResponse("Le jeu suivant a bien été supprimé : ", typeToDelete));
+    }
 
 }
 
