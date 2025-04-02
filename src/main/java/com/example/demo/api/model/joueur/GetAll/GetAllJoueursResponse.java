@@ -5,6 +5,6 @@ import com.example.demo.dal.domain.entity.Joueur;
 import java.util.Set;
 
 public record GetAllJoueursResponse(
-       Set<Joueur> setGetAllJoueursResponse
+       Set<Joueur> setAllJoueurs
 ) {
 }

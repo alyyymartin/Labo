@@ -10,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,12 +31,9 @@ public class TypeController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Set<GetAllTypesResponse>> getAllTypes() {
-        HashSet<Type> setAllTypes = new HashSet<>(typeService.getAllTypes());
-        HashSet<GetAllTypesResponse> setAllTypesResponse = new HashSet<>();
-        for (Type type : setAllTypes) {
-            setAllTypesResponse.add(new GetAllTypesResponse(type));
-        }
+    public ResponseEntity<GetAllTypesResponse> getAllTypes() {
+        List<Type> setAllTypes = new ArrayList<>(typeService.getAllTypes());
+        GetAllTypesResponse setAllTypesResponse = new GetAllTypesResponse(setAllTypes);
         return ResponseEntity.ok(setAllTypesResponse);
     }
 

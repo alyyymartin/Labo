@@ -44,7 +44,7 @@ public class JoueurController {
     }
 
     @PutMapping("/{username}/update")
-    public ResponseEntity<UpdateJoueurByUsernameResponse> updateJoueurByUserame(@PathVariable String username, @RequestBody UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest) {
+    public ResponseEntity<UpdateJoueurByUsernameResponse> updateJoueurByUsername(@PathVariable String username, @RequestBody UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest) {
         return ResponseEntity.ok(joueurService.updateJoueurByUsername(username, updateJoueurByUsernameRequest));
     }
 

@@ -8,41 +8,57 @@ import com.example.demo.bll.exception.alreadyExists.AlreadyExistsException;
 import com.example.demo.bll.exception.ressourceNotFound.RessourceNotFoundException;
 import com.example.demo.bll.service.JeuService;
 import com.example.demo.dal.domain.entity.Jeu;
+import com.example.demo.dal.domain.entity.Type;
 import com.example.demo.dal.repository.JeuRepository;
+import com.example.demo.dal.repository.TypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class JeuServiceImpl implements JeuService {
 
     private final JeuRepository jeuRepository;
+    private final TypeRepository typeRepository;
 
     @Override
-    public CreateJeuResponse createJeu(CreateJeuRequest createJeuRequest) {
+    public Jeu createJeu(CreateJeuRequest createJeuRequest) {
+
         Optional<Jeu> jeuToFind = jeuRepository.getJeuByJeu(createJeuRequest.jeu());
         if (jeuToFind.isPresent()) {
             throw new AlreadyExistsException("Un jeu existe déjà avec ce nom.");
-        } else {
-            Jeu jeuToCreate = new Jeu ();
-            jeuToCreate.setJeu(createJeuRequest.jeu());
-            jeuToCreate.setNbreMaxJoueurs(createJeuRequest.nbreMaxJoueurs());
-            jeuToCreate.setNbreMinJoueurs(createJeuRequest.nbreMinJoueurs());
-            jeuToCreate.setDescription(createJeuRequest.description());
-            jeuRepository.save(jeuToCreate);
-            return new CreateJeuResponse("Le jeu suivant a bien été créé :", jeuToCreate);
         }
+
+        Set<Type> types = createJeuRequest.types();
+        Set<Type> checkedTypes = new HashSet<>();
+
+        for (Type type : types) {
+            Optional<Type> typeToFind = typeRepository.findTypeByType(type.getType());
+
+            if (!typeToFind.isPresent()) {
+                throw new RessourceNotFoundException("Le type souhaité n'existe pas");
+            }
+
+            checkedTypes.add(typeToFind.get());
+        }
+
+        Jeu jeuToCreate = new Jeu();
+        jeuToCreate.setJeu(createJeuRequest.jeu());
+        jeuToCreate.setNbreMaxJoueurs(createJeuRequest.nbreMaxJoueurs());
+        jeuToCreate.setNbreMinJoueurs(createJeuRequest.nbreMinJoueurs());
+        jeuToCreate.setDescription(createJeuRequest.description());
+        jeuToCreate.setTypes(checkedTypes);
+        jeuRepository.save(jeuToCreate);
+        return jeuToCreate;
     }
 
     @Override
-    public Set<Jeu> getAllJeux() {
-        Set <Jeu> setAllJeux = new HashSet<>();
-        setAllJeux.addAll(jeuRepository.findAll());
-        return setAllJeux;
+    public List<Jeu> getAllJeux() {
+        List <Jeu> listAllJeux = new ArrayList<>();
+        listAllJeux.addAll(jeuRepository.findAll());
+        return listAllJeux;
     }
 
     @Override
@@ -50,6 +66,13 @@ public class JeuServiceImpl implements JeuService {
         Jeu jeuToFind = jeuRepository.getJeuByJeu(jeu)
                 .orElseThrow(() -> new RessourceNotFoundException("Jeu introuvable"));
         return new GetJeuByJeuResponse(jeuToFind);
+    }
+
+    @Override
+    public List<Jeu> getJeuxByType(String type) {
+        Type referenceType = typeRepository.findTypeByType(type)
+                .orElseThrow(() -> new RessourceNotFoundException("Type introuvable"));
+        return jeuRepository.findAllJeuxByType(type);
     }
 
     @Override

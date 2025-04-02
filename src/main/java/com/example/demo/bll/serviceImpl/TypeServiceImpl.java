@@ -3,7 +3,6 @@ package com.example.demo.bll.serviceImpl;
 import com.example.demo.api.model.type.Create.CreateTypeRequest;
 import com.example.demo.api.model.type.Create.CreateTypeResponse;
 import com.example.demo.api.model.type.FindByType.FindTypeByTypeResponse;
-import com.example.demo.api.model.type.GetAll.GetAllTypesResponse;
 import com.example.demo.bll.exception.alreadyExists.AlreadyExistsException;
 import com.example.demo.bll.exception.ressourceNotFound.RessourceNotFoundException;
 import com.example.demo.bll.service.TypeService;
@@ -12,9 +11,7 @@ import com.example.demo.dal.repository.TypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -43,8 +40,8 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public Set<Type> getAllTypes() {
-        Set <Type> setAllTypes = new HashSet<>();
+    public List<Type> getAllTypes() {
+        List <Type> setAllTypes = new ArrayList<>();
         setAllTypes.addAll(typeRepository.findAll());
         return setAllTypes;
     }
