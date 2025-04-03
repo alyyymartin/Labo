@@ -58,8 +58,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public List<Type> getAllTypes() {
-        List <Type> setAllTypes = new ArrayList<>();
-        setAllTypes.addAll(typeRepository.findAll());
+        List <Type> setAllTypes = new ArrayList<>(typeRepository.findAll());
         return setAllTypes;
     }
 
