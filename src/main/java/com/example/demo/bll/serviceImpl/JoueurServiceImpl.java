@@ -1,12 +1,7 @@
 package com.example.demo.bll.serviceImpl;
 
 import com.example.demo.api.model.joueur.Create.CreateJoueurRequest;
-import com.example.demo.api.model.joueur.Create.CreateJoueurResponse;
-import com.example.demo.api.model.joueur.DeleteByUsername.DeleteJoueurByUsernameResponse;
-import com.example.demo.api.model.joueur.GetAll.GetAllJoueursResponse;
-import com.example.demo.api.model.joueur.GetByUsername.GetByUsernameResponse;
 import com.example.demo.api.model.joueur.Update.UpdateJoueurByUsernameRequest;
-import com.example.demo.api.model.joueur.Update.UpdateJoueurByUsernameResponse;
 import com.example.demo.bll.exception.alreadyExists.AlreadyExistsException;
 import com.example.demo.bll.exception.ressourceNotFound.RessourceNotFoundException;
 import com.example.demo.bll.service.JoueurService;
@@ -26,15 +21,14 @@ public class JoueurServiceImpl implements JoueurService {
     private final JoueurRepository joueurRepository;
 
     @Override
-    public GetByUsernameResponse findJoueurByUsername(String username) {
+    public Joueur findJoueurByUsername(String username) {
         Joueur joueurtoFind = joueurRepository.findByUsername(username)
                 .orElseThrow(() -> new RessourceNotFoundException("Joueur introuvable"));
-        GetByUsernameResponse getByUsernameResponse = new GetByUsernameResponse("Voici les infos du joueur recherché : ", joueurRepository.findByUsername(username));
-        return getByUsernameResponse;
+        return joueurtoFind;
     }
 
     @Override
-    public CreateJoueurResponse createJoueur(CreateJoueurRequest createJoueurRequest) {
+    public Joueur createJoueur(CreateJoueurRequest createJoueurRequest) {
         Optional <Joueur> joueurtoFind = joueurRepository.findByUsername(createJoueurRequest.username());
         if (joueurtoFind.isPresent()) {
             throw new AlreadyExistsException("Un joueur existe déjà avec ce nom d'utilisateur.");
@@ -46,50 +40,36 @@ public class JoueurServiceImpl implements JoueurService {
         joueurToCreate.setPassword(createJoueurRequest.password());
         joueurToCreate.setPresentation(createJoueurRequest.presentation());
         joueurRepository.save(joueurToCreate);
-        return new CreateJoueurResponse("Le joueur suivant a bien été créé : ", joueurToCreate);
+        return joueurToCreate;
         }
     }
 
     @Override
-    public GetAllJoueursResponse getAllJoueurs() {
+    public Set<Joueur> getAllJoueurs() {
         Set<Joueur> setAllJoueurs = new HashSet<>();
         setAllJoueurs.addAll(joueurRepository.findAll());
-        return new GetAllJoueursResponse(setAllJoueurs);
+        return setAllJoueurs;
     }
 
     @Override
-    public DeleteJoueurByUsernameResponse deleteJoueurByUsername(String username) {
+    public Joueur deleteJoueurByUsername(String username) {
         Joueur joueurToDelete = joueurRepository.findByUsername(username)
                 .orElseThrow(() -> new RessourceNotFoundException("Joueur inexistant"));
         joueurRepository.delete(joueurToDelete);
-        return new DeleteJoueurByUsernameResponse("Le joueur suivant a bien été supprimé : ", joueurToDelete);
+        return joueurToDelete;
     }
 
     @Override
-    public UpdateJoueurByUsernameResponse updateJoueurByUsername(String username, UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest) {
-        Joueur joueurToUpdate = joueurRepository.findByUsername(username)
+    public Joueur updateJoueurByUsername(String username, UpdateJoueurByUsernameRequest updateJoueurByUsernameRequest) {
+        Joueur joueurUpDated = joueurRepository.findByUsername(username)
                 .orElseThrow(() -> new RessourceNotFoundException("Joueur introuvable"));
 
-        String ancienNom = joueurToUpdate.getNom();
-        String ancienPrenom = joueurToUpdate.getPrenom();
-        String anciennePresentation = joueurToUpdate.getPresentation();
-        String ancienPassword = joueurToUpdate.getPassword();
+        joueurUpDated.setPassword(updateJoueurByUsernameRequest.password());
+        joueurUpDated.setNom(updateJoueurByUsernameRequest.nom());
+        joueurUpDated.setPrenom(updateJoueurByUsernameRequest.prenom());
+        joueurUpDated.setPresentation(updateJoueurByUsernameRequest.presentation());
+        joueurRepository.save(joueurUpDated);
 
-        joueurToUpdate.setUsername(username);
-        joueurToUpdate.setPassword(updateJoueurByUsernameRequest.password());
-        joueurToUpdate.setNom(updateJoueurByUsernameRequest.nom());
-        joueurToUpdate.setPrenom(updateJoueurByUsernameRequest.prenom());
-        joueurToUpdate.setPresentation(updateJoueurByUsernameRequest.presentation());
-
-        joueurRepository.save(joueurToUpdate);
-
-        return new UpdateJoueurByUsernameResponse(
-                "Anciennes données du joueur ", username, ancienPassword, ancienNom, ancienPrenom, anciennePresentation,
-                "Nouvelles données : ",
-                joueurToUpdate.getPassword(),
-                joueurToUpdate.getNom(),
-                joueurToUpdate.getPrenom(),
-                joueurToUpdate.getPresentation()
-        );
+        return joueurUpDated;
     }
 }

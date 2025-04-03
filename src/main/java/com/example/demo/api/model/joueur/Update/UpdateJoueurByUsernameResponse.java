@@ -1,18 +1,13 @@
 package com.example.demo.api.model.joueur.Update;
 
+import com.example.demo.dal.domain.entity.Joueur;
+
 public record UpdateJoueurByUsernameResponse(
 
         String messageAncien,
-        String username,
-        String ancienPassword,
-        String ancienNom,
-        String ancienPrenom,
-        String anciennePresentation,
+        Joueur joueurToUpdate,
 
         String messageNouveau,
-        String nouveauPassword,
-        String nouveauNom,
-        String nouveauPrenom,
-        String nouvelleresentation
+        Joueur joueurUpdated
 ) {
 }

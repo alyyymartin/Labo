@@ -4,6 +4,6 @@ import com.example.demo.dal.domain.entity.Joueur;
 
 public record GetByUsernameResponse(
         String message,
-        java.util.Optional<Joueur> joueurToFind
+        Joueur joueurToFind
 ) {
 }
