@@ -21,7 +21,7 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public Type createType(CreateTypeRequest createTypeRequest) {
 
-        //Création d'un objet Type qui reprend les infos de la createTypeRequest:
+        //Création d'un objet Type qui reprend les infos de la createTypeRequest :
         Type typeToCreate = new Type();
         typeToCreate.setType(createTypeRequest.type());
         typeToCreate.setDescription(createTypeRequest.description());

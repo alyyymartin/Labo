@@ -1,9 +1,6 @@
 package com.example.demo.bll.serviceImpl;
 
 import com.example.demo.api.model.jeu.Create.CreateJeuRequest;
-import com.example.demo.api.model.jeu.Create.CreateJeuResponse;
-import com.example.demo.api.model.jeu.DeleteJeuByJeu.DeleteJeuByJeuResponse;
-import com.example.demo.api.model.jeu.GetJeuByJeu.GetJeuByJeuResponse;
 import com.example.demo.bll.exception.alreadyExists.AlreadyExistsException;
 import com.example.demo.bll.exception.ressourceNotFound.RessourceNotFoundException;
 import com.example.demo.bll.service.JeuService;
@@ -37,7 +34,7 @@ public class JeuServiceImpl implements JeuService {
         for (Type type : types) {
             Optional<Type> typeToFind = typeRepository.findTypeByType(type.getType());
 
-            if (!typeToFind.isPresent()) {
+            if (typeToFind.isEmpty()) {
                 throw new RessourceNotFoundException("Le type souhaité n'existe pas");
             }
 
@@ -56,8 +53,7 @@ public class JeuServiceImpl implements JeuService {
 
     @Override
     public List<Jeu> getAllJeux() {
-        List <Jeu> listAllJeux = new ArrayList<>();
-        listAllJeux.addAll(jeuRepository.findAll());
+        List <Jeu> listAllJeux = new ArrayList<>(jeuRepository.findAll());
         return listAllJeux;
     }
 
@@ -72,7 +68,7 @@ public class JeuServiceImpl implements JeuService {
     public List<Jeu> getJeuxByType(String type) {
         Type referenceType = typeRepository.findTypeByType(type)
                 .orElseThrow(() -> new RessourceNotFoundException("Type introuvable"));
-        return jeuRepository.findAllJeuxByType(type);
+        return jeuRepository.findAllJeuxByType(referenceType.getType());
     }
 
     @Override
