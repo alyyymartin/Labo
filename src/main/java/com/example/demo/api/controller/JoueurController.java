@@ -8,13 +8,10 @@ import com.example.demo.api.model.joueur.GetByUsername.GetByUsernameResponse;
 import com.example.demo.api.model.joueur.Update.UpdateJoueurByUsernameRequest;
 import com.example.demo.api.model.joueur.Update.UpdateJoueurByUsernameResponse;
 import com.example.demo.bll.service.JoueurService;
-import com.example.demo.dal.domain.entity.Joueur;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor

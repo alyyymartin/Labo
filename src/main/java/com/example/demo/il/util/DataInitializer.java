@@ -3,14 +3,18 @@ package com.example.demo.il.util;
 
 import com.example.demo.dal.domain.entity.Jeu;
 import com.example.demo.dal.domain.entity.Joueur;
+import com.example.demo.dal.domain.entity.Partie;
 import com.example.demo.dal.domain.entity.Type;
 import com.example.demo.dal.repository.JeuRepository;
 import com.example.demo.dal.repository.JoueurRepository;
+import com.example.demo.dal.repository.PartieRepository;
 import com.example.demo.dal.repository.TypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +25,7 @@ public class DataInitializer implements CommandLineRunner {
     private final JeuRepository jeuRepository;
     private final JoueurRepository joueurRepository;
     private final TypeRepository typeRepository;
+    private final PartieRepository partieRepository;
 
 
     @Override
@@ -161,6 +166,35 @@ public class DataInitializer implements CommandLineRunner {
             joueurInitial2.setPassword("Otocyon");
             joueurInitial2.setPresentation("Test de présentation d'Arnaud");
             joueurRepository.save(joueurInitial2);
+
+            //Création partieIndix 1
+            Partie partieIndixInitiale1 = new Partie();
+            partieIndixInitiale1.setDate(LocalDateTime.now());
+            partieIndixInitiale1.setJeu(jeuInitial2);
+            partieIndixInitiale1.setJoueur(joueurInitial);
+            partieIndixInitiale1.setScoreFinal(65);
+            partieIndixInitiale1.setClassement(2);
+            partieIndixInitiale1.setCommentaire("Partie écourtée par manque de temps");
+            partieRepository.save(partieIndixInitiale1);
+
+            //Création partieIndix 2
+            Partie partieIndixInitiale2 = new Partie();
+            partieIndixInitiale2.setDate(LocalDateTime.now());
+            partieIndixInitiale2.setJeu(jeuInitial2);
+            partieIndixInitiale1.setJoueur(joueurInitial2);
+            partieIndixInitiale2.setScoreFinal(67);
+            partieIndixInitiale2.setClassement(1);
+            partieIndixInitiale2.setCommentaire("Partie écourtée par manque de temps");
+            partieRepository.save(partieIndixInitiale2);
+
+            //Création partieCatane 1
+            Partie partieCataneInitiale2 = new Partie();
+            partieCataneInitiale2.setDate(LocalDateTime.now());
+            partieCataneInitiale2.setJeu(jeuInitial1);
+            partieCataneInitiale2.setJoueur(joueurInitial);
+            partieCataneInitiale2.setScoreFinal(42);
+            partieCataneInitiale2.setClassement(1);
+            partieRepository.save(partieCataneInitiale2);
         }
     }
 }
