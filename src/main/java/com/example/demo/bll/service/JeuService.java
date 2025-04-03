@@ -15,11 +15,11 @@ public interface JeuService {
 
     List<Jeu> getAllJeux();
 
-    GetJeuByJeuResponse getJeuByJeu(String jeu);
+    Jeu getJeuByJeu(String jeuToFind);
 
     List<Jeu> getJeuxByType(String type);
 
-    DeleteJeuByJeuResponse deleteJeuByJeu(String jeu);
+    Jeu deleteJeuByJeu(String jeuToDelete);
 
 }
 

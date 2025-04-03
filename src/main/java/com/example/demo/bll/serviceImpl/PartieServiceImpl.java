@@ -1,6 +1,7 @@
 package com.example.demo.bll.serviceImpl;
 
 import com.example.demo.api.model.partie.CreatePartie.CreatePartieRequest;
+import com.example.demo.bll.exception.ressourceNotFound.RessourceNotFoundException;
 import com.example.demo.bll.service.PartieService;
 import com.example.demo.dal.domain.entity.Joueur;
 import com.example.demo.dal.domain.entity.Partie;

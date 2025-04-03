@@ -62,10 +62,10 @@ public class JeuServiceImpl implements JeuService {
     }
 
     @Override
-    public GetJeuByJeuResponse getJeuByJeu(String jeu) {
-        Jeu jeuToFind = jeuRepository.getJeuByJeu(jeu)
+    public Jeu getJeuByJeu(String jeuToFind) {
+        Jeu jeuFound = jeuRepository.getJeuByJeu(jeuToFind)
                 .orElseThrow(() -> new RessourceNotFoundException("Jeu introuvable"));
-        return new GetJeuByJeuResponse(jeuToFind);
+        return jeuFound;
     }
 
     @Override
@@ -76,10 +76,10 @@ public class JeuServiceImpl implements JeuService {
     }
 
     @Override
-    public DeleteJeuByJeuResponse deleteJeuByJeu(String jeu) {
+    public Jeu deleteJeuByJeu(String jeu) {
         Jeu jeuToDelete = jeuRepository.getJeuByJeu(jeu)
                 .orElseThrow(() -> new RessourceNotFoundException("Jeu inexistant"));
         jeuRepository.delete(jeuToDelete);
-        return new DeleteJeuByJeuResponse("Le jeu suivant a bien été supprimé : ", jeuToDelete);
+        return jeuToDelete;
     }
 }

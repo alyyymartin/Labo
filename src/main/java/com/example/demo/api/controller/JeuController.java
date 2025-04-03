@@ -31,8 +31,9 @@ public class JeuController {
     }
 
     @GetMapping ("/{jeu}/jeu")
-    public ResponseEntity<GetJeuByJeuResponse> getJeuByJeu(@PathVariable String jeu) {
-        return ResponseEntity.ok(jeuService.getJeuByJeu(jeu));
+    public ResponseEntity<GetJeuByJeuResponse> getJeuByJeu(@PathVariable String jeuToFind) {
+        Jeu jeuFound = jeuService.getJeuByJeu(jeuToFind);
+        return ResponseEntity.ok(new GetJeuByJeuResponse(jeuFound));
     }
 
     @GetMapping("/{type}")
@@ -49,8 +50,9 @@ public class JeuController {
     }
 
     @DeleteMapping ("/{jeu}/delete")
-    public ResponseEntity<DeleteJeuByJeuResponse> deleteJeuByJeu (@PathVariable String jeu) {
-        return ResponseEntity.ok(jeuService.deleteJeuByJeu(jeu));
+    public ResponseEntity<DeleteJeuByJeuResponse> deleteJeuByJeu (@PathVariable String jeuToDelete) {
+        Jeu jeuDeleted = jeuService.deleteJeuByJeu(jeuToDelete);
+        return ResponseEntity.ok(new DeleteJeuByJeuResponse("Le jeu suivant a bien été supprimé : ", jeuDeleted));
     }
 }
 
